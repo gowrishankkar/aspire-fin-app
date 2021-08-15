@@ -1,34 +1,38 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
-import VueCookie from 'vue-cookie';
+import VueRouter from 'vue-router';
 
-import router from './router';
-import App from '@Component/App/App.vue';
-import VuexStoreConfig from './vuex/store';
+import { LoadingState } from 'src/config/loading-state';
+import Navigation from 'components/Navigation/navigation';
+import Loader from 'components/Loader/loader';
 
-import { enableAnalytics, analyticsKey, disableAnalyticsInDebug } from './config';
+Vue.use(VueRouter);
 
-if (enableAnalytics) {
-  const VueAnalytics = require('vue-analytics').default;
-  Vue.use(VueAnalytics, {
-    id: analyticsKey,
-    router,
-    debug: {
-      enabled: process.env.NODE_ENV !== 'production',
-      sendHitTask: process.env.NODE_ENV === 'production' || !disableAnalyticsInDebug,
-    },
-  });
-}
+import 'src/config/http';
+import routes from 'src/routes';
+import 'src/style.scss';
 
-Vue.config.productionTip = false;
-
-Vue.use(Vuex);
-Vue.use(VueCookie);
-
-const store = new Vuex.Store(VuexStoreConfig);
+export const router = new VueRouter({
+  routes,
+  mode: 'history',
+  linkActiveClass: 'active'
+});
 
 new Vue({
-  render: h => h(App),
   router,
-  store,
+  components: {
+    Navigation,
+    Loader
+  },
+
+  data(){
+    return {
+      isLoading: false
+    };
+  },
+
+  created(){
+    LoadingState.$on('toggle', (isLoading) => {
+      this.isLoading = isLoading;
+    });
+  }
 }).$mount('#app');
