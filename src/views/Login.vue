@@ -1,28 +1,26 @@
 <template>
   <v-flex sm12 md12 lg12 xl12 class="pa-2">
-     <v-card color="basil">
-    <v-tabs v-model="tab">
-      <v-tab v-for="item in items" :key="item">
-        {{ item }}
-      </v-tab>
-    </v-tabs>
-    <v-tabs-items v-model="tab">
-      <v-tab-item v-for="item in items" :key="item">
-        <DebitCards />
-      </v-tab-item>
-    </v-tabs-items>
-  </v-card>
+    <v-card >
+      <v-tabs v-model="tab">
+        <v-tab v-for="item in items" :key="item">
+          {{ item }}
+        </v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="tab">
+        <v-tab-item v-for="item in items" :key="item">
+          <v-card elevation="5" class="ma-4"> <DebitCards /></v-card>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
   </v-flex>
- 
 </template>
 
 <script>
 import DebitCards from "@/components/DebitCards";
 
-
 export default {
-  components:{
-    DebitCards
+  components: {
+    DebitCards,
   },
   data() {
     return {

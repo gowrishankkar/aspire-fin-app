@@ -1,27 +1,18 @@
 <template>
-  <div>
-
-<v-card
-    max-width="400"
-        height="300"
-  >
-    <v-card-text>
-      asd
-    </v-card-text>
-
-    
-  </v-card>
-
-
+  <div class="ma-4">
+    <v-card max-width="400" height="300">
+      <v-card-text>
+        asd
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 <script>
 export default {
-    data: () => ({
-      reveal: false,
-    }),
- 
-}
+  data: () => ({
+    reveal: false,
+  }),
+};
 </script>
 <style lang="scss" scoped>
 .v-card--reveal {
